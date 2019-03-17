@@ -1,7 +1,7 @@
 ## Building Intelligent GeoSpatial Search Applications with Azure Search
 
 ### About this Presentation
-In this presentation, you will learn how to use Azure-Search to power geospatial search application. This is a hands-on demo during which you will learn how to do the following operations described below using Postman and then later on walk through an end-to-end multi-tier application that integrates an Angular Web Application, a .NET CORE Web API with an Azure Search backend to demonstrate the full range of geospatial capabilities of Azure Search:
+Geo-spatial search is prevalent in everyday applications that power our day-to-day lives. In this presentation, you will learn how to use Azure-Search to power geospatial search application. This is a hands-on demo during which you will learn how to do the following operations described below using Postman and then later on walk through an end-to-end multi-tier application that integrates an Angular Web Application, a .NET CORE Web API with an Azure Search backend to demonstrate the full range of geospatial capabilities of Azure Search:
 
 ### Goals
 - Create an Index
