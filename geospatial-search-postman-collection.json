@@ -1,0 +1,543 @@
+{
+	"info": {
+		"_postman_id": "0642c801-2973-4810-accc-af2c79d450d3",
+		"name": "AzureSearchGeospatial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateIndexRestaurants",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"restaurants\",  \r\n    \"fields\": [\r\n        {\"name\": \"restaurantId\", \"type\": \"Edm.String\", \"key\": true, \"searchable\": false, \"sortable\": false, \"facetable\": false},\r\n        {\"name\": \"name\", \"type\": \"Edm.String\", \"facetable\": false},\r\n        {\"name\": \"averageCost\", \"type\": \"Edm.Double\"},\r\n        {\"name\": \"description\", \"type\": \"Edm.String\", \"filterable\": false, \"sortable\": false, \"facetable\": false},\r\n        {\"name\": \"category\", \"type\": \"Edm.String\"},\r\n        {\"name\": \"tags\", \"type\": \"Collection(Edm.String)\"},\r\n        {\"name\": \"street\", \"type\": \"Edm.String\"},\r\n        {\"name\": \"city\", \"type\": \"Edm.String\"},\r\n        {\"name\": \"state\", \"type\": \"Edm.String\"},\r\n        {\"name\": \"zipcode\", \"type\": \"Edm.Int32\"},\r\n        {\"name\": \"parkingAvailable\", \"type\": \"Edm.Boolean\", \"sortable\": false},\r\n        {\"name\": \"smokingAllowed\", \"type\": \"Edm.Boolean\", \"sortable\": false},\r\n        {\"name\": \"startDate\", \"type\": \"Edm.DateTimeOffset\"},\r\n        {\"name\": \"rating\", \"type\": \"Edm.Int32\"},\r\n        {\"name\": \"location\", \"type\": \"Edm.GeographyPoint\"}\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes/restaurants?api-version={{apiVersion}}",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"restaurants"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddDocumentsToResturantsIndex",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"value\": [\n    {\n      \"@search.action\": \"mergeOrUpload\",\n      \"restaurantId\": \"1\",\n      \"name\": \"El Inka Grill\",\n      \"averageCost\": 60,\n      \"description\": \"Authentic Peruvian Cuisine is considered among the best in the world and here at El Inka Grill it is at its finest.\",\n      \"category\": \"Interior\",\n      \"tags\": [\n        \"Seafood\",\n        \"Peruvian\",\n        \"Latino\",\n        \"Concierge\"\n      ],\n      \"street\": \"4106 W Town Center Blvd\",\n      \"city\": \"Orlando\",\n      \"state\": \"FL\",\n      \"zipcode\": 32837,\n      \"parkingAvailable\": true,\n      \"smokingAllowed\": false,\n      \"startDate\": \"2016-06-06T23:00:00Z\",\n      \"rating\": 5,\n      \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n          28.361982,\n          -81.425667\n        ]\n      }\n    },\n    {\n      \"@search.action\": \"mergeOrUpload\",\n      \"restaurantId\": \"7\",\n      \"name\": \"Bone Fish Grill\",\n      \"averageCost\": 38,\n      \"description\": \"Bonefish Grill is an American casual dining seafood restaurant chain owned and operated by Bloomin' Brands, headquartered in Tampa, Florida\",\n      \"category\": \"Exterior\",\n      \"tags\": [\n        \"Seafood\",\n        \"American\"\n      ],\n      \"street\": \"2699 W Osceola Pkwy\",\n      \"city\": \"Kissimmee\",\n      \"state\": \"FL\",\n      \"zipcode\": 34741,\n      \"parkingAvailable\": true,\n      \"smokingAllowed\": false,\n      \"startDate\": \"2008-06-06T23:00:00Z\",\n      \"rating\": 4,\n      \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n          28.343513,\n          -81.429649\n        ]\n      }\n    },\n    {\n      \"@search.action\": \"mergeOrUpload\",\n      \"restaurantId\": \"8\",\n      \"name\": \"Olive Garden\",\n      \"averageCost\": 49,\n      \"description\": \"Olive Garden is an American casual dining restaurant chain specializing in Italian-American cuisine\",\n      \"category\": \"Interior\",\n      \"tags\": [\n        \"Italian\",\n        \"Salad\"\n      ],\n      \"street\": \"1604 W Osceola Pkwy\",\n      \"city\": \"Kissimmee\",\n      \"state\": \"FL\",\n      \"zipcode\": 34741,\n      \"parkingAvailable\": true,\n      \"smokingAllowed\": false,\n      \"startDate\": \"2014-06-27T23:00:00Z\",\n      \"rating\": 4,\n      \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n          28.341778,\n          -81.4217\n        ]\n      }\n    },\n    {\n      \"@search.action\": \"mergeOrUpload\",\n      \"restaurantId\": \"2\",\n      \"name\": \"Tijuana Flats\",\n      \"averageCost\": 30,\n      \"description\": \"Tijuana Flats is always keepin' it fresh with the best Tex-Mex! Click here to find out if you handle the heat.\",\n      \"category\": \"Interior\",\n      \"tags\": [\n        \"Mexican\",\n        \"Tex Mex\",\n        \"Latino\",\n        \"Spanish\"\n      ],\n      \"street\": \"13651 Hunters Oak Dr Ste 107\",\n      \"city\": \"Orlando\",\n      \"state\": \"FL\",\n      \"zipcode\": 32837,\n      \"parkingAvailable\": true,\n      \"smokingAllowed\": false,\n      \"startDate\": \"2014-06-27T23:00:00Z\",\n      \"rating\": 4,\n      \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n          28.366592,\n          -81.425972\n        ]\n      }\n    },\n    {\n      \"@search.action\": \"mergeOrUpload\",\n      \"restaurantId\": \"3\",\n      \"name\": \"Ruby Tuesday\",\n      \"averageCost\": 45,\n      \"description\": \"Ruby Tuesday Inc is a multinational foodservice retailer that owns, operates, and franchises Ruby Tuesday restaurants\",\n      \"category\": \"Exterior\",\n      \"tags\": [\n        \"American\",\n        \"Burger\"\n      ],\n      \"street\": \"13145 S Orange Blossom Trl\",\n      \"city\": \"Orlando\",\n      \"state\": \"FL\",\n      \"zipcode\": 32837,\n      \"parkingAvailable\": true,\n      \"smokingAllowed\": false,\n      \"startDate\": \"2017-04-01T23:00:00Z\",\n      \"rating\": 3,\n      \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n          28.374531,\n          -81.4039\n        ]\n      }\n    },\n    {\n      \"@search.action\": \"mergeOrUpload\",\n      \"restaurantId\": \"6\",\n      \"name\": \"Las Palmas Restaurant\",\n      \"averageCost\": 20,\n      \"description\": \"This bustling Latin American eatery serves up dishes with a Colombian influence, plus beer and wine\",\n      \"category\": \"Interior\",\n      \"tags\": [\n        \"Colombian\",\n        \"Spanish\"\n      ],\n      \"street\": \"14525 Orange Blossom Trail\",\n      \"city\": \"Orlando\",\n      \"state\": \"FL\",\n      \"zipcode\": 32837,\n      \"parkingAvailable\": true,\n      \"smokingAllowed\": false,\n      \"startDate\": \"2008-06-06T23:00:00Z\",\n      \"rating\": 4,\n      \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n          28.356354,\n          -81.404999\n        ]\n      }\n    },\n    {\n      \"@search.action\": \"mergeOrUpload\",\n      \"restaurantId\": \"5\",\n      \"name\": \"Cracker Barrel Old Country Store\",\n      \"averageCost\": 40,\n      \"description\": \"Cracker Barrel Old Country Store, Inc. is an American chain of combined restaurant and gift stores with a Southern country theme\",\n      \"category\": \"Interior\",\n      \"tags\": [\n        \"Brunch\",\n        \"Country\",\n        \"American\",\n        \"Southern\"\n      ],\n      \"street\": \"13300 S Orange Blossom Trl\",\n      \"city\": \"Orlando\",\n      \"state\": \"FL\",\n      \"zipcode\": 32837,\n      \"parkingAvailable\": true,\n      \"smokingAllowed\": false,\n      \"startDate\": \"2018-06-06T23:00:00Z\",\n      \"rating\": 5,\n      \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n          28.370717,\n          -81.405221\n        ]\n      }\n    },\n    {\n      \"@search.action\": \"mergeOrUpload\",\n      \"restaurantId\": \"4\",\n      \"name\": \"Shiso Sushi\",\n      \"averageCost\": 20,\n      \"description\": \"Japanese Sushi restaurants. Informal pick offering traditional sushi & specialty rolls, plus a long & popular happy hour\",\n      \"category\": \"Exterior\",\n      \"tags\": [\n        \"Sushi\",\n        \"Japanese\",\n        \"Seafood\"\n      ],\n      \"street\": \"13025 S Orange Blossom Trl\",\n      \"city\": \"Orlando\",\n      \"state\": \"FL\",\n      \"zipcode\": 32837,\n      \"parkingAvailable\": true,\n      \"smokingAllowed\": false,\n      \"startDate\": \"2018-02-24T23:00:00Z\",\n      \"rating\": 5,\n      \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n          28.377361,\n          -81.402771\n        ]\n      }\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes/restaurants/docs/index?api-version={{apiVersion}} ",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"restaurants",
+						"docs",
+						"index"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}} "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetIndexRestaurants",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes/restaurants?api-version={{apiVersion}}",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"restaurants"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListIndices",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes?api-version={{apiVersion}}",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteIndexRestaurants",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes/restaurants?api-version={{apiVersion}}",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"restaurants"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchAllRecords",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"count\": true,\r\n    \"search\": \"*\",\r\n    \"select\": \"*\",\r\n    \"orderby\": \"name asc\",\r\n    \"skip\": 0,\r\n    \"top\": 25\r\n}"
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes/restaurants/docs/search?api-version={{apiVersion}}",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"restaurants",
+						"docs",
+						"search"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FilterRestaurantsByDistance",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"count\": true,\r\n    \"search\": \"*\",\r\n    \"select\": \"*\",\r\n    \"orderby\": \"geo.distance(location,geography'POINT(28.348841 -81.461755)') asc, name asc\",\r\n    \"skip\": 0,\r\n    \"top\": 25,\r\n    \"filter\" : \"geo.distance(location,geography'POINT(28.348841 -81.461755)') le 6.30\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes/restaurants/docs/search?api-version={{apiVersion}}",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"restaurants",
+						"docs",
+						"search"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FilterRestaurantsByDistance2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"count\": true,\r\n    \"search\": \"*\",\r\n    \"select\": \"*\",\r\n    \"orderby\": \"geo.distance(location,geography'POINT(28.348841 -81.461755)') asc, name asc\",\r\n    \"skip\": 0,\r\n    \"top\": 25,\r\n    \"filter\" : \"(geo.distance(location,geography'POINT(28.348841 -81.461755)') le 6.30) and city eq 'Orlando'\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes/restaurants/docs/search?api-version={{apiVersion}}",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"restaurants",
+						"docs",
+						"search"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FilterRestaurantsByOutsidePolygon",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"count\": true,\r\n    \"search\": \"*\",\r\n    \"select\": \"*\",\r\n    \"orderby\": \"geo.distance(location,geography'POINT(28.348841 -81.461755)') asc, name desc\",\r\n    \"skip\": 0,\r\n    \"top\": 25,\r\n    \"filter\" : \"not geo.intersects(location, geography'POLYGON((28.371497 -81.468771, 28.347327 -81.468685, 28.348007 -81.403969, 28.372932 -81.404398, 28.371497 -81.468771))')\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes/restaurants/docs/search?api-version={{apiVersion}}",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"restaurants",
+						"docs",
+						"search"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FilterRestaurantsInsidePolygon",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"count\": true,\r\n    \"search\": \"*\",\r\n    \"select\": \"*\",\r\n    \"orderby\": \"name asc\",\r\n    \"skip\": 0,\r\n    \"top\": 25,\r\n    \"filter\" : \"geo.intersects(location, geography'POLYGON((28.371497 -81.468771, 28.347327 -81.468685, 28.348007 -81.403969, 28.372932 -81.404398, 28.371497 -81.468771))')\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes/restaurants/docs/search?api-version={{apiVersion}}",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"restaurants",
+						"docs",
+						"search"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FilterRestaurantsInsidePolygonDistanceFilter",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{AdminApiKey}}",
+						"description": "The Authorization Key"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "The Content Type of the Request Body"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"count\": true,\r\n    \"search\": \"*\",\r\n    \"select\": \"*\",\r\n    \"orderby\": \"geo.distance(location,geography'POINT(28.348841 -81.461755)') asc, name desc\",\r\n    \"skip\": 0,\r\n    \"top\": 25,\r\n    \"filter\" : \"(geo.distance(location,geography'POINT(28.348841 -81.461755)') le 4.5) and geo.intersects(location, geography'POLYGON((28.371497 -81.468771, 28.347327 -81.468685, 28.348007 -81.403969, 28.372932 -81.404398, 28.371497 -81.468771))')\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{serviceName}}.search.windows.net/indexes/restaurants/docs/search?api-version={{apiVersion}}",
+					"protocol": "https",
+					"host": [
+						"{{serviceName}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"restaurants",
+						"docs",
+						"search"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{apiVersion}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "86359e60-6e70-4ebd-9c9d-f2845a9b7be3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "bcca678a-21d3-4968-bf4e-0e169438256a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "0b04960d-3642-4f87-b54e-c8916582f944",
+			"key": "serviceName",
+			"value": "msbuildsearch0",
+			"type": "string"
+		},
+		{
+			"id": "74bb36c4-04f5-4046-ab8e-4a26a694531c",
+			"key": "apiVersion",
+			"value": "2017-11-11",
+			"type": "string"
+		},
+		{
+			"id": "e241baaf-6cdd-4ce6-9f3f-aa534bc23ab2",
+			"key": "AdminApiKey",
+			"value": "0EE08B02C512341A0216913EB68121C5",
+			"type": "string"
+		},
+		{
+			"id": "b73ff1ec-62ed-4b36-bc53-e3170a9d6872",
+			"key": "QueryApiKey",
+			"value": "ED09BC4C8098766F35C030CC731C78C",
+			"type": "string"
+		}
+	]
+}
