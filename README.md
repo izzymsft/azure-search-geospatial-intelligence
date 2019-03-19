@@ -14,6 +14,12 @@ Geo-spatial search is prevalent in everyday applications that power our day-to-d
 ### Use Cases and Industry Application
 During the demo, we will cover some real-world use cases where the geospatial capabilities of Azure Search could come in pretty handy such as tracking of important assets such as cruise ships in the sea, aircrafts, moving trucks and inventory at construction sites.
 
+#### Searching by radius from a specific point
+![Radius](Geospatial_Radius.png "Geospatial Radius Search")
+
+#### Searching by Geospatial fences and closed boundaries
+![Polygon](Geospatial_Radius_Polygon.png "Geospatial Polygon Search")
+
 ### Presentation Details
 Primary Audience: Geo-Spatial Application Developers, Solution Architects.
 
